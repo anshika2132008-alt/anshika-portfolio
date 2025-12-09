@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Anshika Bhardwaj — Portfolio (Crystal Soft Luxury)</title>
+<meta name="description" content="Crystal Soft Luxury portfolio for Anshika Bhardwaj — cosmic mauve, frosted glass, sparkles, and mini-projects.">
+
+<style>
+/* ============================
+   Crystal Soft Luxury - Single-file CSS
+   - Frosted crystal panels + ultra-luxury gloss
+   - deep cosmic mauve gradient background
+   - soft rose-gold accents and silver sparkles
+   ============================ */
+
+:root{
+  --bg1: #251231;    /* deep lavender/night */
+  --bg2: #2b1830;    /* night blue/mauve */
+  --bg3: #3a2233;    /* dusty mauve */
+  --gloss-top: rgba(255,255,255,0.03);
+  --glass: rgba(255,255,255,0.04); /* translucent light for glass panels */
+  --glass-2: rgba(255,255,255,0.02);
+  --rose: #f4b8c6;
+  --gold: #ffd9a8;
+  --silver: rgba(230,230,235,0.95);
+  --muted: rgba(220,220,230,0.6);
+  --text: #f6eef8;
+  --radius: 18px;
+  --shadow-weak: 0 10px 30px rgba(0,0,0,0.55);
+  --shadow-strong: 0 30px 80px rgba(0,0,0,0.75);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;background:
+  radial-gradient(1000px 480px at 10% 10%, rgba(98,44,100,0.18) 0%, transparent 18%),
+  radial-gradient(900px 520px at 90% 88%, rgba(62,21,40,0.18) 0%, transparent 18%),
+  linear-gradient(135deg,var(--bg1) 0%, var(--bg2) 42%, var(--bg3) 78%);
+color:var(--text);-webkit-font-smoothing:antialiased;padding-top:92px;overflow-y:auto}
+
+/* Sparkles canvas occupies full screen, behind everything */
+#sparkles { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+
+/* ---------- NAVBAR (glass + gloss) ---------- */
+header.nav{
+  position:fixed; left:0; right:0; top:0; height:92px; display:flex;align-items:center;justify-content:space-between;
+  padding:14px 28px; z-index: 9999;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  backdrop-filter: blur(8px) saturate(120%);
+  box-shadow: var(--shadow-weak);
+}
+
+/* brand */
+.brand{display:flex;gap:14px;align-items:center}
+.logo{
+  width:64px;height:64px;border-radius:16px;display:grid;place-items:center;
+  background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.05));
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  font-weight:900;color:var(--rose);font-size:18px;
+}
+.brand h1{font-size:1rem;margin:0}
+nav.primary a{margin-left:16px;text-decoration:none;color:var(--text);padding:8px 12px;border-radius:12px;font-weight:700;opacity:0.95}
+nav.primary a:hover{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.03));transform:translateY(-2px)}
+
+/* ---------- Container & sections ---------- */
+.container{max-width:1120px;margin:30px auto;padding:20px;position:relative;z-index:3}
+section{margin-bottom:36px;padding:22px;border-radius:var(--radius);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.035);
+  box-shadow: var(--shadow-weak);
+}
+
+/* headings */
+h1,h2,h3{margin:0}
+.muted{color:var(--muted)}
+
+/* ---------- HERO ---------- */
+.hero{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.hero-left{flex:1;min-width:260px}
+.hero-right{width:280px;min-width:180px}
+.tagline{font-size:1.05rem;color:var(--muted);margin-top:8px}
+.cta .btn{
+  display:inline-block;padding:10px 16px;border-radius:14px;background: linear-gradient(90deg,var(--rose),var(--gold));
+  color:#20101d;font-weight:900;text-decoration:none;border:1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.55);
+}
+
+/* ---------- Projects grid (cards use frosted + gloss) ---------- */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:16px}
+
+/* Frosted Crystal Panel (primary) */
+.card{
+  padding:18px;border-radius:14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+  backdrop-filter: blur(6px) saturate(120%);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.65);
+  transition: transform .18s ease, box-shadow .18s ease;
+  cursor:pointer;
+}
+.card:hover{transform:translateY(-10px);box-shadow: var(--shadow-strong)}
+.card h3{margin-bottom:8px}
+.card p{color:var(--muted)}
+
+/* Ultra-luxury gloss accent button inside card */
+.link-btn{
+  display:inline-block;padding:9px 14px;border-radius:12px;background:
+  linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color:var(--text);font-weight:800;text-decoration:none;margin-top:10px;border:1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* ---------- Overlay for mini-projects (dark glass) ---------- */
+.project-overlay{
+  position:fixed;inset:0;background: linear-gradient(180deg, rgba(8,5,10,0.65), rgba(8,5,10,0.9));
+  display:none;z-index:9998;padding:28px;overflow:auto;
+}
+.project-inner{
+  max-width:1100px;margin:12px auto;padding:18px;border-radius:14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow: var(--shadow-strong);
+}
+.project-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.back-btn{
+  padding:9px 12px;border-radius:12px;background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color:var(--text);border:1px solid rgba(255,255,255,0.04);cursor:pointer;font-weight:800;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6)
+}
+
+/* ---------- Pet cards (frosted + gloss) ---------- */
+.pets-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.pet-card{
+  padding:14px;border-radius:12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.pet-img{
+  width:160px;height:120px;border-radius:12px;display:grid;place-items:center;font-size:46px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.02);
+  color:var(--rose);
+}
+
+/* ---------- Forms & inputs (luxury dark) ---------- */
+form{display:flex;flex-direction:column;gap:10px}
+input,textarea,select{
+  padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+  color:var(--text);
+}
+input:focus,textarea:focus{box-shadow:0 12px 40px rgba(184,107,159,0.06);border-color:rgba(255,255,255,0.05)}
+
+/* ---------- Mini projects: soft luxury styling ---------- */
+/* Calculator - Cute aesthetic (rounded) but in soft luxury tones */
+.calc-wrap{
+  display:flex;flex-direction:column;align-items:center;gap:12px;padding:18px;border-radius:18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+  max-width:420px;margin:0 auto;
+}
+.calc-screen{
+  width:100%;border-radius:14px;background: linear-gradient(180deg,#0b0710,#11061a);
+  color:var(--text);padding:18px;font-size:1.8rem;text-align:right;font-weight:800;min-height:68px;border:1px solid rgba(255,255,255,0.03);
+  box-shadow: inset 0 2px 18px rgba(255,255,255,0.02);
+}
+.calc-keypad{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px;width:100%}
+.key{
+  padding:14px;border-radius:14px;text-align:center;font-weight:900;cursor:pointer;color:var(--text);
+  background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+  user-select:none; transition: transform .12s ease, box-shadow .12s ease;
+}
+.key:active{transform:translateY(2px);box-shadow:0 6px 16px rgba(0,0,0,0.6)}
+.key.op{background: linear-gradient(90deg,#6e3a63,#b86b9f); color:var(--text); box-shadow:0 12px 36px rgba(184,107,159,0.12)}
+.key.secondary{background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.08))}
+.key.wide{grid-column:span 2}
+
+/* Tic Tac Toe board soft luxury */
+.ttt-board{display:grid;grid-template-columns:repeat(3,100px);gap:12px;justify-content:center;margin-top:12px}
+.ttt-cell{
+  width:100px;height:100px;border-radius:12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+  display:grid;place-items:center;font-size:36px;box-shadow:0 12px 30px rgba(0,0,0,0.7);cursor:pointer;
+}
+
+/* Quiz card */
+.quiz-card{
+  max-width:720px;margin:0 auto;padding:12px;border-radius:12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+  box-shadow:0 12px 30px rgba(0,0,0,0.7);
+}
+.quiz-options button{
+  display:block;width:100%;text-align:left;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);
+  margin-top:8px;background:transparent;color:var(--text);cursor:pointer;
+}
+
+/* Pomodoro display */
+.timer-display{
+  font-size:44px;font-weight:800;text-align:center;padding:18px;border-radius:12px;
+  background: linear-gradient(180deg,#0c0710,#14061a);max-width:320px;margin:0 auto;box-shadow:0 12px 30px rgba(0,0,0,0.7);
+}
+
+/* To-do */
+.todo-wrap{max-width:720px;margin:0 auto}
+.task{
+  display:flex;justify-content:space-between;gap:10px;padding:10px;border-radius:12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+  margin-bottom:8px;align-items:center;box-shadow:0 10px 24px rgba(0,0,0,0.6)
+}
+.task .text{flex:1;color:var(--text)}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+.contact-card{
+  padding:14px;border-radius:12px;background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+  border:1px solid rgba(255,255,255,0.02)
+}
+
+/* Responsive */
+@media (max-width:880px){
+  .hero{flex-direction:column}
+  .contact-grid{grid-template-columns:1fr}
+  .ttt-board{grid-template-columns:repeat(3,80px)}
+  .ttt-cell{width:80px;height:80px;font-size:28px}
+}
+
+/* footer */
+.footer-note{font-size:0.95rem;color:var(--muted);text-align:center;margin-top:14px}
+</style>
+</head>
+<body>
+
+<!-- Sparkles canvas -->
+<canvas id="sparkles"></canvas>
+
+<!-- NAV -->
+<header class="nav" role="banner">
+  <div class="brand" aria-hidden="true">
+    <div class="logo">AB</div>
+    <div>
+      <h1 style="font-size:1rem;margin:0">Anshika Bhardwaj</h1>
+      <div style="font-size:0.85rem;color:var(--muted)">Student developer</div>
+    </div>
+  </div>
+
+  <nav class="primary" role="navigation" aria-label="Primary">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- MAIN -->
+<main class="container" role="main">
+
+  <!-- HOME -->
+  <section id="home" aria-labelledby="home-h">
+    <div class="hero">
+      <div class="hero-left">
+        <h1 id="home-h" style="font-size:1.95rem">Hi — I’m <strong>Anshika Bhardwaj</strong></h1>
+        <div class="tagline">Student developer — turning ideas into interactive apps.</div>
+        <p style="margin-top:12px;color:var(--muted)">
+          I blend creativity with code to craft front-end experiences and small web apps that are useful, delightful, and premium.
+          Explore my major Pet Adoption & Donation project (external) and soft-tone mini-projects below.
+        </p>
+        <div class="cta" style="margin-top:14px">
+          <a class="btn" href="#projects">See projects</a>
+          <a class="btn" href="#contact" style="background:linear-gradient(90deg,var(--rose),var(--gold));color:#12060a">Contact</a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div style="padding:14px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);box-shadow:var(--shadow-weak)">
+          <div style="display:flex;gap:12px;align-items:center">
+            <div style="width:76px;height:76px;border-radius:14px;background:linear-gradient(135deg,#3a2032,#5a2b45);display:grid;place-items:center;font-weight:900;font-size:20px;color:var(--rose)">AB</div>
+            <div>
+              <div style="font-weight:900">Anshika Bhardwaj</div>
+              <div class="muted" style="font-size:0.9rem">Student developer</div>
+              <div style="margin-top:8px;font-size:0.9rem;color:var(--muted)"><strong>Email:</strong><br><a href="mailto:anshika2132008@gmail.com" style="color:var(--rose)">anshika2132008@gmail.com</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" aria-labelledby="about-h">
+    <h2 id="about-h">About Me</h2>
+    <p style="margin-top:12px;color:var(--muted)">
+      “I’m Anshika Bhardwaj, a student developer who enjoys blending creativity with technology to build useful and intuitive web experiences. Front-end development is where I feel most at home — it lets me design, refine, and bring interactive ideas to life. One of my proudest works is my Pet Adoption & Donation website, a project built to solve a real-world issue with a compassionate approach. I also enjoy building mini-projects that help me sharpen essential development skills: a to-do list app for handling local storage, a Pomodoro timer to explore timing logic, and a quiz app that challenges my UI design and DOM manipulation skills. I’m committed to learning continuously, improving my craft, and becoming a developer who builds solutions that make a positive difference.”
+    </p>
+
+    <div style="margin-top:12px">
+      <strong>Skills</strong>
+      <ul style="margin-top:8px;color:var(--muted)">
+        <li>HTML, CSS, JavaScript</li>
+        <li>Responsive UI & accessibility basics</li>
+        <li>LocalStorage & stateful UI</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" aria-labelledby="projects-h">
+    <h2 id="projects-h">Projects</h2>
+    <p class="muted" style="margin-top:8px">Mini-projects open inside overlays styled in soft luxury tones. The major Pet Adoption project opens your external file <code><petadoption class="html"></petadoption></code>.</p>
+
+    <div class="projects-grid" style="margin-top:16px">
+      <!-- Major Project (external link) -->
+      <div class="card" role="group" aria-label="Pet Adoption Project">
+        <h3>🐾 Pet Adoption & Donation (Major)</h3>
+        <p class="muted">My full Pet Adoption & Donation project — open your external file.</p>
+        <a href="petadoption.html" class="link-btn" title="Open Pet Adoption project">Open Project</a>
+      </div>
+
+      <!-- Mini Projects -->
+      <div class="card" role="button" onclick="openProject('calc')" tabindex="0">
+        <h3>Calculator</h3>
+        <p class="muted">Cute luxury calculator — soft-glow, rounded buttons.</p>
+      </div>
+
+      <div class="card" role="button" onclick="openProject('ttt')" tabindex="0">
+        <h3>Tic Tac Toe</h3>
+        <p class="muted">Two-player game with win detection & reset (soft tones).</p>
+      </div>
+
+      <div class="card" role="button" onclick="openProject('quiz')" tabindex="0">
+        <h3>Quiz App</h3>
+        <p class="muted">Five-question quiz — score & restart, soft visuals.</p>
+      </div>
+
+      <div class="card" role="button" onclick="openProject('pom')" tabindex="0">
+        <h3>Pomodoro Timer</h3>
+        <p class="muted">25-minute default with start/pause/reset — soft display.</p>
+      </div>
+
+      <div class="card" role="button" onclick="openProject('todo')" tabindex="0">
+        <h3>To-Do List</h3>
+        <p class="muted">Add & delete tasks; saved using LocalStorage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" aria-labelledby="contact-h">
+    <h2 id="contact-h">Contact Me</h2>
+    <div class="contact-grid" style="margin-top:12px">
+      <div class="contact-card">
+        <form id="contactForm" onsubmit="return false;">
+          <label><strong>Name</strong><input id="cf-name" placeholder="Your name" required></label>
+          <label><strong>Email</strong><input id="cf-email" type="email" placeholder="you@example.com" required></label>
+          <label><strong>Message</strong><textarea id="cf-msg" rows="5" placeholder="Write a short message..." required></textarea></label>
+          <div style="display:flex;gap:10px;align-items:center;margin-top:8px">
+            <button class="btn" onclick="mockContact()" style="background:linear-gradient(90deg,var(--rose),var(--gold));color:#12060a">Send message</button>
+            <div class="muted">Or email directly: <br><strong style="color:var(--rose)">anshika2132008@gmail.com</strong></div>
+          </div>
+        </form>
+      </div>
+
+      <div>
+        <div class="contact-card">
+          <h3>Availability</h3>
+          <p class="muted">Open to learning, collaboration and front-end projects.</p>
+          <h3 style="margin-top:12px">Note</h3>
+          <p class="muted">Mini-projects run inside overlays; ensure <code>petadoption.html</code> is in the same folder if you want the major project link to work.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-note">Designed with Crystal Soft Luxury • Frosted glass panels + Ultra-luxury gloss • Sparkles & Trails ✨</div>
+</main>
+
+<!-- Overlay (reused) -->
+<div id="overlay" class="project-overlay" aria-hidden="true">
+  <div class="project-inner" role="dialog" aria-modal="true">
+    <div class="project-top">
+      <div>
+        <h2 id="ov-title">Project</h2>
+        <div id="ov-sub" class="muted">subtitle</div>
+      </div>
+      <div>
+        <button class="back-btn" onclick="closeProject()">← Back to Projects</button>
+      </div>
+    </div>
+    <div id="ov-content"></div>
+  </div>
+</div>
+
+<!-- ========= JavaScript: sparkles, overlays, mini-projects ========= -->
+<script>
+/* ==============================
+   Sparkles + Mouse Trail System
+   - single canvas, floating silver particles
+   - warm gold mouse trail bloom
+   - optimized for performance
+   ============================== */
+(function(){
+  const canvas = document.getElementById('sparkles');
+  const ctx = canvas.getContext('2d');
+  let DPR = Math.max(1, window.devicePixelRatio || 1);
+
+  function resize(){
+    canvas.width = innerWidth * DPR;
+    canvas.height = innerHeight * DPR;
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const W = () => innerWidth;
+  const H = () => innerHeight;
+
+  // floating silver particles
+  let particles = [];
+  const baseCount = Math.max(24, Math.floor((W()*H()) / 90000));
+  const silverColors = [
+    'rgba(245,245,250,0.95)',
+    'rgba(240,242,250,0.9)',
+    'rgba(255,250,250,0.9)'
+  ];
+  for(let i=0;i<baseCount;i++){
+    particles.push({
+      x: Math.random()*W(),
+      y: Math.random()*H(),
+      vx: (Math.random()-0.5)*0.12,
+      vy: (Math.random()-0.5)*0.06,
+      r: Math.random()*2.6 + 1.2,
+      a: Math.random()*0.9 + 0.12,
+      color: silverColors[Math.floor(Math.random()*silverColors.length)],
+      tw: Math.random()*7000 + 2000,
+      toff: Math.random()*7000
+    });
+  }
+
+  // mouse trails
+  let trails = [];
+  function addTrail(x,y){ trails.push({x,y,age:0,life:700, r: Math.random()*3 + 1.8}); if(trails.length>180) trails.shift(); }
+
+  let lastTime = performance.now();
+  function loop(now){
+    const dt = now - lastTime;
+    lastTime = now;
+    ctx.clearRect(0,0, canvas.width/DPR, canvas.height/DPR);
+
+    // floating particles
+    for(let p of particles){
+      p.x += p.vx * (dt/16);
+      p.y += p.vy * (dt/16);
+      p.toff += dt;
+      const tw = 0.4 + 0.6*Math.abs(Math.sin((p.toff/p.tw)*Math.PI*2));
+      const alpha = p.a * tw;
+      if(p.x < -20) p.x = W() + 20;
+      if(p.x > W() + 20) p.x = -20;
+      if(p.y < -20) p.y = H() + 20;
+      if(p.y > H() + 20) p.y = -20;
+
+      const grd = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r*6);
+      grd.addColorStop(0, p.color.replace('0.9','' + (alpha+0.05)));
+      grd.addColorStop(0.35, p.color.replace('0.9','' + (alpha*0.6)));
+      grd.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = grd;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r*6, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    // trails (warm gold)
+    for(let i=0;i<trails.length;i++){
+      const t = trails[i];
+      t.age += dt;
+      const frac = 1 - (t.age / t.life);
+      if(frac <= 0){ trails.splice(i,1); i--; continue; }
+      const size = t.r * 10 * (1 + (1 - frac));
+      const grd = ctx.createRadialGradient(t.x, t.y, 0, t.x, t.y, size);
+      grd.addColorStop(0, `rgba(255, 210, 140, ${0.95 * frac})`);
+      grd.addColorStop(0.3, `rgba(255, 240, 230, ${0.6 * frac})`);
+      grd.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = grd;
+      ctx.beginPath();
+      ctx.arc(t.x, t.y, size, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  // pointer events
+  let lastAdd = 0;
+  window.addEventListener('pointermove', (e)=> {
+    const now = performance.now();
+    if(now - lastAdd > 18){ addTrail(e.clientX, e.clientY); lastAdd = now; }
+  });
+  window.addEventListener('pointerdown', (e)=>{
+    for(let i=0;i<6;i++){
+      trails.push({x: e.clientX + (Math.random()*12-6), y: e.clientY + (Math.random()*12-6), age:0, life:500, r: Math.random()*3 + 2});
+    }
+  });
+})();
+
+/* ============================
+   Overlay control & dispatch
+   ============================ */
+const overlay = document.getElementById('overlay');
+const ovTitle = document.getElementById('ov-title');
+const ovSub = document.getElementById('ov-sub');
+const ovContent = document.getElementById('ov-content');
+
+function openProject(id){
+  ovContent.innerHTML = '';
+  overlay.style.display = 'block';
+  overlay.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+
+  if(id === 'calc') showCalculator();
+  else if(id === 'ttt') showTicTacToe();
+  else if(id === 'quiz') showQuiz();
+  else if(id === 'pom') showPomodoro();
+  else if(id === 'todo') showTodo();
+  else { ovTitle.textContent = 'Project'; ovSub.textContent = ''; ovContent.innerHTML = '<p>Project</p>'; }
+
+  overlay.scrollTop = 0;
+}
+
+function closeProject(){
+  overlay.style.display = 'none';
+  overlay.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+  ovContent.innerHTML = '';
+}
+
+/* Mock contact */
+function mockContact(){
+  const n = document.getElementById('cf-name').value.trim();
+  const e = document.getElementById('cf-email').value.trim();
+  const m = document.getElementById('cf-msg').value.trim();
+  if(!n || !e || !m){ alert('Please complete all fields'); return; }
+  alert(`Thanks, ${n}! Message received (mock). I will reply at ${e}.`);
+  document.getElementById('contactForm').reset();
+}
+
+/* ============================
+   Calculator (Cute Aesthetic - luxury)
+   - safe eval, ±, backspace, keyboard support
+   ============================ */
+function showCalculator(){
+  ovTitle.textContent = 'Calculator';
+  ovSub.textContent = 'Cute luxury calculator — soft-blush glow, rounded bubbly buttons.';
+
+  ovContent.innerHTML = `
+    <div class="calc-wrap" aria-label="Calculator">
+      <div id="calcScreen" class="calc-screen" aria-live="polite">0</div>
+      <div class="calc-keypad" role="group" aria-label="Calculator keys">
+        <div class="key secondary" data-key="C">C</div>
+        <div class="key secondary" data-key="±">±</div>
+        <div class="key secondary" data-key="⌫">⌫</div>
+        <div class="key op" data-key="/">÷</div>
+
+        <div class="key" data-key="7">7</div>
+        <div class="key" data-key="8">8</div>
+        <div class="key" data-key="9">9</div>
+        <div class="key op" data-key="*">×</div>
+
+        <div class="key" data-key="4">4</div>
+        <div class="key" data-key="5">5</div>
+        <div class="key" data-key="6">6</div>
+        <div class="key op" data-key="-">−</div>
+
+        <div class="key" data-key="1">1</div>
+        <div class="key" data-key="2">2</div>
+        <div class="key" data-key="3">3</div>
+        <div class="key op" data-key="+">+</div>
+
+        <div class="key" data-key="(">(</div>
+        <div class="key" data-key="0">0</div>
+        <div class="key" data-key=".">.</div>
+        <div class="key op" data-key="=">=</div>
+      </div>
+    </div>
+  `;
+
+  const screen = document.getElementById('calcScreen');
+  let expr = '', lastEval = null;
+
+  function render(){ screen.textContent = expr || '0'; }
+
+  function safeEval(s){
+    s = s.replace(/÷/g,'/').replace(/×/g,'*').replace(/−/g,'-');
+    if(!/^[0-9+\-*/().\s]+$/.test(s)) throw new Error('Invalid characters');
+    return Function('"use strict"; return ('+s+')')();
+  }
+
+  ovContent.querySelectorAll('[data-key]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const k = btn.dataset.key;
+      if(k==='C'){ expr=''; lastEval=null; render(); return; }
+      if(k==='⌫'){ expr = expr.slice(0,-1); render(); return; }
+      if(k==='±'){
+        if(!expr){ expr='-'; render(); return; }
+        const m = expr.match(/([-+]?\d*\.?\d+)$/);
+        if(m){ const num=m[0], idx=m.index; const togg = num.startsWith('-') ? num.slice(1) : '-' + num; expr = expr.slice(0,idx)+togg; render(); }
+        else { expr += '-'; render(); }
+        return;
+      }
+      if(k==='='){
+        if(!expr) return;
+        try{
+          const res = safeEval(expr);
+          const display = (Math.round((res + Number.EPSILON) * 100000000) / 100000000).toString();
+          expr = display; lastEval=res; render();
+        }catch(err){ screen.textContent='Error'; expr=''; lastEval=null; }
+        return;
+      }
+      if(k==='.'){
+        const lastToken = expr.split(/[\+\-\*\/\(\)]/).pop();
+        if(lastToken && lastToken.includes('.')) return;
+      }
+      expr += k; render();
+    });
+  });
+
+  // keyboard support while overlay open
+  function keyHandler(e){
+    const allowed = '0123456789+-*/().';
+    if(e.key==='Enter' || e.key==='='){ e.preventDefault(); ovContent.querySelector('[data-key="="]').click(); }
+    else if(e.key==='Backspace'){ e.preventDefault(); ovContent.querySelector('[data-key="⌫"]').click(); }
+    else if(e.key==='Delete'){ e.preventDefault(); ovContent.querySelector('[data-key="C"]').click(); }
+    else if(allowed.includes(e.key)){
+      const btn = ovContent.querySelector(`[data-key="${e.key}"]`);
+      if(btn){ e.preventDefault(); btn.click(); }
+    }
+  }
+  document.addEventListener('keydown', keyHandler);
+
+  const origClose = closeProject;
+  closeProject = function(){ document.removeEventListener('keydown', keyHandler); origClose(); };
+}
+
+/* ============================
+   Tic Tac Toe (luxury soft)
+   ============================ */
+function showTicTacToe(){
+  ovTitle.textContent = 'Tic Tac Toe';
+  ovSub.textContent = 'Two-player game with win detection.';
+
+  ovContent.innerHTML = `
+    <div style="text-align:center">
+      <div style="font-weight:900">Tic Tac Toe</div>
+      <div id="tttMsg" class="muted" style="margin-top:6px">Turn: X</div>
+      <div class="ttt-board" id="tttBoard" role="grid" aria-label="tic tac toe board"></div>
+      <div style="margin-top:12px"><button class="btn" id="tttReset" style="background:linear-gradient(90deg,var(--rose),var(--gold));color:#12060a">Reset</button></div>
+    </div>
+  `;
+
+  const boardEl = document.getElementById('tttBoard');
+  const msg = document.getElementById('tttMsg');
+  const resetBtn = document.getElementById('tttReset');
+  let board = Array(9).fill(null), current='X', finished=false;
+
+  function render(){
+    boardEl.innerHTML='';
+    for(let i=0;i<9;i++){
+      const cell = document.createElement('div');
+      cell.className='ttt-cell'; cell.textContent=board[i]||''; cell.tabIndex=0;
+      cell.dataset.idx=i; cell.addEventListener('click', onCell); cell.addEventListener('keypress', (e)=>{ if(e.key==='Enter') onCell(e); });
+      boardEl.appendChild(cell);
+    }
+    msg.textContent = finished ? 'Game over' : 'Turn: ' + current;
+  }
+  function onCell(e){
+    if(finished) return;
+    const i = +e.currentTarget.dataset.idx;
+    if(board[i]) return;
+    board[i]=current;
+    if(checkWin(board)){ finished=true; msg.textContent = current + ' wins!'; setTimeout(()=>alert(current + ' wins!'),60); }
+    else if(board.every(Boolean)){ finished=true; msg.textContent='Draw'; setTimeout(()=>alert('Draw!'),60); }
+    else current = current === 'X' ? 'O' : 'X';
+    render();
+  }
+  function checkWin(b){
+    const lines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    for(const l of lines){ const [a,b1,c]=l; if(b[a] && b[a]===b[b1] && b[a]===b[c]) return true; } return false;
+  }
+  function reset(){ board=Array(9).fill(null); current='X'; finished=false; render(); }
+  resetBtn.addEventListener('click', reset);
+  render();
+}
+
+/* ============================
+   Quiz App (soft luxury)
+   ============================ */
+function showQuiz(){
+  ovTitle.textContent = 'Quiz App';
+  ovSub.textContent = 'Five-question quiz with scoring.';
+
+  const qs = [
+    {q:'Which language runs in the browser?', options:['Python','JavaScript','C#','Java'], a:1},
+    {q:'What does CSS stand for?', options:['Central Style Sheets','Cascading Style Sheets','Computer Style Sheets','Creative Style System'], a:1},
+    {q:'Which tag is used for JavaScript?', options:['<script>','<js>','<s>','<code>'], a:0},
+    {q:'Which array method adds to the end?', options:['push','pop','shift','slice'], a:0},
+    {q:'DOM stands for?', options:['Document Object Model','Data Object Model','Document Oriented Markup','Direct Object Model'], a:0},
+  ];
+  let idx=0, score=0;
+
+  ovContent.innerHTML = `
+    <div class="quiz-card">
+      <div id="quizBody"></div>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="btn" id="quizRestart" style="background:linear-gradient(90deg,var(--rose),var(--gold));color:#12060a">Restart</button>
+      </div>
+      <div id="quizResult" style="margin-top:12px"></div>
+    </div>
+  `;
+
+  const quizBody = document.getElementById('quizBody');
+  const restartBtn = document.getElementById('quizRestart');
+  const result = document.getElementById('quizResult');
+
+  function render(){
+    if(idx >= qs.length){
+      quizBody.innerHTML = `<div style="text-align:center"><div style="font-weight:900">Quiz Complete</div><div style="margin-top:8px">Your score: <strong>${score}/${qs.length}</strong></div></div>`;
+      result.innerHTML = `<div style="margin-top:12px">${qs.map((q,i)=>`<div style="padding:10px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));margin-top:8px"><div style="font-weight:800">Q${i+1}: ${q.q}</div><div class="muted" style="margin-top:6px">Answer: <strong>${q.options[q.a]}</strong></div></div>`).join('')}</div>`;
+      return;
+    }
+    const cur = qs[idx];
+    quizBody.innerHTML = `<div style="font-weight:900">Question ${idx+1} of ${qs.length}</div><div style="margin-top:10px;font-size:1.05rem">${cur.q}</div>
+      <div class="quiz-options" style="margin-top:8px">${cur.options.map((opt,i)=>`<button type="button" data-opt="${i}">${opt}</button>`).join('')}</div>`;
+    result.textContent = '';
+    quizBody.querySelectorAll('[data-opt]').forEach(b => b.addEventListener('click', ()=> {
+      const chosen = +b.dataset.opt;
+      if(chosen === cur.a) score++;
+      idx++;
+      render();
+    }));
+  }
+
+  restartBtn.addEventListener('click', ()=>{ idx=0; score=0; render(); result.innerHTML=''; });
+  render();
+}
+
+/* ============================
+   Pomodoro Timer
+   ============================ */
+function showPomodoro(){
+  ovTitle.textContent = 'Pomodoro Timer';
+  ovSub.textContent = '25-minute timer with Start / Pause / Reset.';
+
+  ovContent.innerHTML = `
+    <div style="text-align:center">
+      <div class="timer-display" id="pomDisplay">25:00</div>
+      <div style="margin-top:12px">
+        <button class="btn" id="pomStart">Start</button>
+        <button class="btn" id="pomPause" style="background:linear-gradient(90deg,var(--rose),var(--gold));margin-left:8px;color:#12060a">Pause</button>
+        <button class="btn" id="pomReset" style="background:linear-gradient(90deg,var(--rose),var(--gold));margin-left:8px;color:#12060a">Reset</button>
+      </div>
+    </div>
+  `;
+
+  const display = document.getElementById('pomDisplay');
+  const start = document.getElementById('pomStart');
+  const pause = document.getElementById('pomPause');
+  const reset = document.getElementById('pomReset');
+
+  let total = 25*60, remaining = total, timer = null;
+  function fmt(s){ const m=Math.floor(s/60); const sec=s%60; return `${m.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`; }
+  function tick(){ if(remaining<=0){ clearInterval(timer); timer=null; alert('Pomodoro complete!'); return; } remaining--; display.textContent = fmt(remaining); }
+  start.addEventListener('click', ()=>{ if(timer) return; timer = setInterval(tick,1000); });
+  pause.addEventListener('click', ()=>{ if(timer) clearInterval(timer); timer=null; });
+  reset.addEventListener('click', ()=>{ if(timer) clearInterval(timer); timer=null; remaining = total; display.textContent = fmt(remaining); });
+  display.textContent = fmt(remaining);
+}
+
+/* ============================
+   To-Do List (localStorage)
+   ============================ */
+function showTodo(){
+  ovTitle.textContent = 'To-Do List';
+  ovSub.textContent = 'Add, delete tasks. Saved to LocalStorage.';
+
+  ovContent.innerHTML = `
+    <div class="todo-wrap">
+      <div style="display:flex;gap:8px">
+        <input id="todoInput" placeholder="Add a new task..." style="flex:1;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)">
+        <button class="btn" id="todoAdd" style="background:linear-gradient(90deg,var(--rose),var(--gold));color:#12060a">Add</button>
+      </div>
+      <div id="tasksArea" style="margin-top:12px"></div>
+    </div>
+  `;
+
+  const input = document.getElementById('todoInput');
+  const add = document.getElementById('todoAdd');
+  const tasksArea = document.getElementById('tasksArea');
+
+  let tasks = JSON.parse(localStorage.getItem('anshika_todo') || '[]');
+
+  function render(){
+    tasksArea.innerHTML = '';
+    if(tasks.length === 0){ tasksArea.innerHTML = '<div class="muted">No tasks yet</div>'; return; }
+    tasks.forEach((t,i)=>{
+      const el = document.createElement('div'); el.className='task';
+      el.innerHTML = `<div class="text">${escapeHtml(t)}</div><div><button class="back-btn" data-i="${i}" style="background:linear-gradient(90deg,#5a2a44,#8b4b6a);border:none;color:var(--text);padding:8px 10px;border-radius:8px">Delete</button></div>`;
+      tasksArea.appendChild(el);
+    });
+    tasksArea.querySelectorAll('[data-i]').forEach(b=> b.addEventListener('click', (e)=>{ const i=+e.currentTarget.dataset.i; tasks.splice(i,1); saveRender(); }));
+  }
+  function saveRender(){ localStorage.setItem('anshika_todo', JSON.stringify(tasks)); render(); }
+
+  add.addEventListener('click', ()=>{ const v=input.value.trim(); if(!v) return; tasks.push(v); input.value=''; saveRender(); });
+  input.addEventListener('keypress', (e)=>{ if(e.key==='Enter') add.click(); });
+
+  render();
+}
+
+/* ============================
+   Utilities & accessibility
+   ============================ */
+function escapeHtml(s){ return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && overlay.style.display==='block') closeProject(); });
+document.addEventListener('focusin', (e)=>{ if(overlay.style.display==='block' && !overlay.contains(e.target)){ const btn = overlay.querySelector('.back-btn'); if(btn) btn.focus(); } });
+
+</script>
+</body>
+</html>
