@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Toggle ON/OFF Button</title>
+  <style>
+    /* Basic page styling */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  /* Default to light theme variables */
+  --bg: #ffffff;
+  --text: #111111;
+  --accent: #4CAF50;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.main-container {
+  text-align: center;
+  padding-top: 100px;
+}
+
+/* Toggle Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 70px;
+  height: 34px;
+  margin-top: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Slider styling */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px; width: 26px;
+  left: 4px; bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(36px);
+}
+
+/* Background change when ON */
+/* Keep a legacy class (on) for compatibility, map to light theme */
+body.on {
+  --bg: #ffffff;
+  --text: #111111;
+}
+
+/* Dark theme */
+body.dark {
+  --bg: #0b0b0b;
+  --text: #e6e6e6;
+  --accent: #6fbf73;
+}
+
+/* Apply variables */
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <h1 id="statusText">Status: OFF</h1>
+
+    <label class="switch" aria-label="Toggle theme">
+      <input type="checkbox" id="toggleBtn" aria-checked="false" aria-label="Theme toggle">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleBtn");
+const statusText = document.getElementById("statusText");
+
+// Keys and helpers
+const THEME_KEY = 'theme-preference'; // 'light' | 'dark'
+
+function applyTheme(theme) {
+  if (theme === 'dark') {
+    document.body.classList.add('dark');
+    document.body.classList.remove('on');
+    toggleBtn.checked = true;
+    toggleBtn.setAttribute('aria-checked', 'true');
+    statusText.textContent = 'Status: ON';
+  } else {
+    document.body.classList.remove('dark');
+    document.body.classList.add('on');
+    toggleBtn.checked = false;
+    toggleBtn.setAttribute('aria-checked', 'false');
+    statusText.textContent = 'Status: OFF';
+  }
+}
+
+// Initialize: use saved preference, else system preference, else light
+function initTheme() {
+  let saved = null;
+  try { saved = localStorage.getItem(THEME_KEY); } catch (e) { /* ignore */ }
+
+  if (saved === 'light' || saved === 'dark') {
+    applyTheme(saved);
+    return;
+  }
+
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(prefersDark ? 'dark' : 'light');
+}
+
+// Persist selection
+toggleBtn.addEventListener('change', () => {
+  const theme = toggleBtn.checked ? 'dark' : 'light';
+  applyTheme(theme);
+  try { localStorage.setItem(THEME_KEY, theme); } catch (e) { /* ignore */ }
+});
+
+initTheme();
+  </script>
+</body>
+</html>

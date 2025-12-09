@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Portfolio</title>
+  <style>
+    /* ---- Basic Reset ---- */
+    * { margin:0; padding:0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; line-height: 1.6; background: #f4f4f4; color: #333; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ---- Navbar ---- */
+    nav { background: #333; color: #fff; padding: 10px 20px; position: sticky; top:0; }
+    nav ul { display: flex; justify-content: center; gap: 20px; }
+    nav ul li a { color: #fff; font-weight: bold; }
+
+    /* ---- Sections ---- */
+    section { padding: 40px 20px; max-width: 900px; margin: auto; background: #fff; margin-bottom: 20px; border-radius: 8px; }
+    header.home { text-align: center; padding: 60px 20px; background: #2c3e50; color: white; }
+    header.home h1 { font-size: 2.8em; margin-bottom: 10px; }
+    header.home p { font-size: 1.2em; }
+
+    h2 { margin-bottom: 15px; color: #2c3e50; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .project-card { border: 1px solid #ddd; padding: 15px; border-radius: 6px; background: #fafafa; }
+    .project-card h3 { margin-bottom: 10px; }
+    .project-card p { margin-bottom: 8px; }
+    .project-card a { color: #3498db; }
+
+    /* ---- Contact Form ---- */
+    form { display: flex; flex-direction: column; gap: 10px; }
+    input, textarea { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 100%; }
+    button { padding: 10px; border: none; border-radius: 4px; background: #3498db; color: white; font-size: 1em; cursor: pointer; }
+    button:hover { background: #2980b9; }
+
+    /* ---- Footer ---- */
+    footer { text-align: center; padding: 20px; background: #333; color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar / Menu -->
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About Me</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Home / Intro Section -->
+  <header id="home" class="home">
+    <h1>Anshika Bhardwaj!</h1>
+    <p>Frontend Web Developer / Student at HIIT / Web-Dev Enthusiast</p>
+  </header>
+
+  <!-- About Me Section -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>Write a short paragraph about yourself: your course (HDWT at HIIT), your interests, skills (HTML, CSS, JS...), and what you want to build or learn.  
+    E.g., “I’m currently pursuing HDWT at HIIT. I enjoy building small web projects, learning JavaScript, and I’m passionate about creating user-friendly, responsive websites.”</p>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+
+      <!-- Major Project Card -->
+      <div class="project-card">
+        <h3>Pet Adoption & Donation Website (Major Project)</h3>
+        <p>Description: A website where users can browse pets, adopt or donate for pet care, contact adoption admins, and view available pets. Created using HTML, CSS, JS.</p>
+        <p><a href="petadoption.html">(Link to live project or repo)</a></p>
+      </div>
+
+      <!-- Mini Project 1 -->
+      <div class="project-card">
+        <h3>Tic Tac Toe Game</h3>
+        <p>A simple browser-based tic tac toe game using JavaScript.</p>
+        <p><a href="tic tac toe.html">(Link)</a></p>
+      </div>
+
+      <!-- Mini Project 2 -->
+      <div class="project-card">
+        <h3>Calculator</h3>
+        <p>A basic calculator (add / subtract / multiply / divide) built with JS + HTML/CSS.</p>
+        <p><a href="calculator.html">(Link)</a></p>
+      </div>
+
+      <!-- Mini Project 3 -->
+      <div class="project-card">
+        <h3>Image Slider / Carousel</h3>
+        <p>Image slider project demonstrating DOM manipulation — slideshow of images.</p>
+        <p><a href="imageslider.html">(Link)</a></p>
+      </div>
+
+      <!-- Mini Project 4 -->
+      <div class="project-card">
+        <h3>Toggle Button / Theme Switcher</h3>
+        <p>A toggle switch to simulate light/dark mode (or any toggle functionality) using JS.</p>
+        <p><a href="togglebutton.html">(Link)</a></p>
+      </div>
+
+      <!-- You can add more projects similarly -->
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form onsubmit="alert('Thank you! Message sent (demo only).'); return false;">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" rows="5" placeholder="Your Message"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Your Name. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // You can put JS here if needed — e.g. for toggle, slider etc.
+  </script>
+
+</body>
+</html>

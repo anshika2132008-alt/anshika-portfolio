@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pet Adoption — Aurora Theme (Final)</title>
+
+<style>
+/* =============================
+   Aurora background & core UI
+   (STYLES PRESERVED — colors/effects unchanged)
+   ============================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+:root{
+  --accent1:#ffd1ff;
+  --accent2:#ff90d5;
+  --muted: rgba(255,237,250,0.85);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+  background: linear-gradient(270deg,#4b1b5f,#a5427a,#e97cae,#ffbcd9);
+  background-size:800% 800%;
+  animation: aurora 20s ease infinite;
+  color:#fff;
+  -webkit-font-smoothing:antialiased;
+}
+@keyframes aurora{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+/* sparkles (preserved) */
+.sparkle{position:fixed;width:4px;height:4px;background:gold;border-radius:50%;opacity:0.85;pointer-events:none;animation:sparkleMove 6s linear infinite;z-index:1200}
+@keyframes sparkleMove{0%{transform:translateY(0) translateX(0);opacity:1}100%{transform:translateY(-300px) translateX(50px);opacity:0}}
+
+/* layout */
+.header{position:sticky;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:12px 28px;background:rgba(255,255,255,0.03);backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,0.03);z-index:1100}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;color:#3b0a49;font-weight:800;box-shadow:0 6px 14px rgba(0,0,0,0.15)}
+.header .title{font-weight:700;color:var(--muted);font-size:15px}
+
+/* slide-like sections */
+.container{max-width:1100px;margin:32px auto;padding:0 18px}
+.hero{padding:40px 0;text-align:center}
+.hero h1{font-size:2.4rem;margin:0;background:linear-gradient(90deg,var(--accent1),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--muted);margin-top:8px}
+
+/* pet grid & cards (preserved visuals) */
+.pet-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:28px}
+.pet-card{background:rgba(255,255,255,0.08);backdrop-filter:blur(12px);border-radius:18px;padding:14px;border:1px solid rgba(255,255,255,0.15);box-shadow:0 0 20px rgba(255,220,240,0.18);transition:transform .28s ease,box-shadow .32s ease;cursor:pointer;display:flex;flex-direction:column;position:relative}
+.pet-card:hover{transform:translateY(-8px);box-shadow:0 0 30px rgba(255,200,230,0.45)}
+.pet-card img{width:100%;height:330px;object-fit:cover;object-position:center;border-radius:14px;box-shadow:0 0 10px rgba(255,200,230,0.35);display:block}
+.pet-card h3{color:#ffe3f0;margin:12px 0 6px}
+.pet-card p{color:#ffedfa;font-size:.95rem;margin:0}
+
+/* small badge for saved favorites (optional) */
+.fav-badge{position:absolute;top:12px;right:12px;padding:6px 8px;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#3b0a49;font-weight:800;display:none}
+
+/* ===== MODAL (glass card style) ===== */
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;justify-content:center;align-items:center;backdrop-filter:blur(6px);z-index:1500;padding:20px;
+}
+.modal-card{
+  width:100%;max-width:920px;background:linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));border-radius:16px;padding:18px;display:flex;gap:18px;align-items:flex-start;border:1px solid rgba(255,255,255,0.06);box-shadow:0 30px 80px rgba(0,0,0,0.6);animation:modalIn .28s ease;
+}
+@keyframes modalIn{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-left{flex:1}
+.modal-left img{width:100%;height:360px;object-fit:cover;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.45)}
+.modal-right{width:360px;background:rgba(255,255,255,0.03);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
+.modal-title{font-size:1.6rem;margin:6px 0;color:#fff}
+.modal-short{color:var(--muted);margin-bottom:8px}
+
+/* detail rows */
+.detail-row{display:flex;justify-content:space-between;margin:8px 0;color:#fff}
+.detail-label{color:var(--accent1);font-weight:700}
+.detail-value{color:var(--muted)}
+
+/* modal tabs (slides) */
+.tab-controls{display:flex;gap:8px;margin-top:12px}
+.tab-btn{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.05);background:rgba(255,255,255,0.03);color:#fff;cursor:pointer}
+.tab-btn.active{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#3b0a49;border:none}
+
+/* tab content (slide effect) */
+.tab-content{margin-top:12px;min-height:120px;position:relative;overflow:hidden}
+.tab-panel{position:absolute;left:0;top:0;width:100%;transition:transform .35s cubic-bezier(.2,.8,.2,1);}
+
+/* adopt form */
+.adopt-form input, .adopt-form textarea{width:100%;padding:10px;border-radius:10px;border:none;background:rgba(255,255,255,0.03);color:#fff;margin-top:8px}
+.adopt-form button{margin-top:10px;padding:10px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#3b0a49;cursor:pointer}
+
+/* sponsor UI */
+.don-grid{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.don-grid button{padding:8px 12px;border-radius:10px;border:none;background:rgba(255,255,255,0.06);color:#fff;cursor:pointer}
+.don-grid button:hover{background:rgba(255,255,255,0.12)}
+.don-custom{display:flex;gap:8px;margin-top:10px}
+.don-custom input{flex:1;padding:10px;border-radius:10px;border:none;background:rgba(255,255,255,0.03);color:#fff}
+.don-custom button{padding:10px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#3b0a49;cursor:pointer}
+
+/* confirmation message */
+.confirm-msg{margin-top:10px;padding:10px;border-radius:10px;background:rgba(255,255,255,0.06);color:var(--muted)}
+
+/* responsive */
+@media (max-width:900px){
+  .modal-card{flex-direction:column}
+  .modal-left img{height:220px}
+  .modal-right{width:100%}
+  .pet-card img{height:200px}
+}
+</style>
+</head>
+<body>
+
+<!-- sparkles generator (preserved) -->
+<script>
+setInterval(()=>{
+  const s=document.createElement('div');
+  s.className='sparkle';
+  s.style.left=(Math.random()*window.innerWidth)+'px';
+  s.style.bottom='-10px';
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),6000);
+},300);
+</script>
+
+<header class="header">
+  <div class="brand"><div class="logo">GR</div><div class="title">The Groom Room</div></div>
+  <nav style="color:var(--muted)"></nav>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h1>Find your new best friend</h1>
+    <p class="lead">Adopt, sponsor and spread love — all in a dreamy pastel aurora theme.</p>
+  </section>
+
+  <!-- PET GRID -->
+  <section id="catalog">
+    <div class="pet-grid" id="petGrid">
+      <!-- cards inserted by JS for consistent attributes -->
+    </div>
+  </section>
+</main>
+
+<!-- MODAL (glass card) -->
+<div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-left">
+      <img id="modalImg" src="" alt="Pet image">
+      <div style="margin-top:10px">
+        <div class="modal-title" id="modalName"></div>
+        <div class="modal-short" id="modalShort"></div>
+      </div>
+    </div>
+
+    <div class="modal-right">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-weight:800;color:var(--accent1)">Pet Details</div>
+        <button id="favBtn" style="background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 10px;border-radius:10px;color:#fff;cursor:pointer">♡ Favorite</button>
+      </div>
+
+      <div style="margin-top:12px">
+        <div class="detail-row"><div class="detail-label">Breed</div><div class="detail-value" id="detailBreed"></div></div>
+        <div class="detail-row"><div class="detail-label">Age</div><div class="detail-value" id="detailAge"></div></div>
+        <div class="detail-row"><div class="detail-label">Gender</div><div class="detail-value" id="detailGender"></div></div>
+        <div class="detail-row"><div class="detail-label">Weight</div><div class="detail-value" id="detailWeight"></div></div>
+        <div class="detail-row"><div class="detail-label">Vaccinated</div><div class="detail-value" id="detailVax"></div></div>
+        <div class="detail-row"><div class="detail-label">Temperament</div><div class="detail-value" id="detailTemp"></div></div>
+        <div class="detail-row"><div class="detail-label">Fee</div><div class="detail-value" id="detailFee"></div></div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tab-controls" style="margin-top:14px">
+        <button class="tab-btn active" data-tab="details">Details</button>
+        <button class="tab-btn" data-tab="adopt">Adopt</button>
+        <button class="tab-btn" data-tab="sponsor">Sponsor</button>
+      </div>
+
+      <div class="tab-content" id="tabContent">
+        <!-- Details panel -->
+        <div class="tab-panel" data-panel="details" style="transform:translateX(0)">
+          <p class="small-muted" id="panelStory" style="margin-top:10px"></p>
+        </div>
+
+        <!-- Adopt panel (off to right initially) -->
+        <div class="tab-panel" data-panel="adopt" style="transform:translateX(100%)">
+          <form class="adopt-form" id="adoptForm" onsubmit="return submitAdopt(event)">
+            <input id="adopterName" type="text" placeholder="Your full name" required>
+            <input id="adopterEmail" type="email" placeholder="Your email" required>
+            <textarea id="adopterMsg" rows="4" placeholder="Why do you want to adopt?"></textarea>
+            <button class="modal-btn" type="submit">Send Adoption Inquiry</button>
+            <div id="adoptConfirm" class="confirm-msg" style="display:none"></div>
+          </form>
+        </div>
+
+        <!-- Sponsor panel -->
+        <div class="tab-panel" data-panel="sponsor" style="transform:translateX(200%)">
+          <div style="margin-top:6px;color:var(--muted)">Choose an amount</div>
+          <div class="don-grid" id="presetAmounts">
+            <!-- preset buttons injected by JS -->
+          </div>
+          <div class="don-custom">
+            <input id="customAmt" type="number" placeholder="Custom amount (₹)">
+            <button class="modal-btn" id="donNowBtn">Donate</button>
+          </div>
+          <div id="donConfirm" class="confirm-msg" style="display:none"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;display:flex;gap:8px">
+        <button class="modal-btn" id="closeModalBtn">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* =======================
+   Pet data (8 images + details)
+   ======================= */
+const PETS = [
+  { id:'snowy', name:'Snowy', img:'https://www.warrenphotographic.co.uk/photgraphy/bigs/35736-cute-baby-white-bunny-sitting-on-starry-background.jpg', short:'Sweet fluffy bunny', breed:'Dwarf Hotot', age:'1 year', gender:'Male', weight:'1.2 kg', vax:'Yes', temperament:'Calm, Curious', fee:800, story:'Found near a park; rehabilitated. Loves gentle pets and soft blankets.' },
+  { id:'milo', name:'Meezan', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfAwmaD_aoM9SJSBCWfGA9XB9PK0QMC4vcl_8SP6b3ykvmPFxa2HhXEv2-lNmO0xbb_40&usqp=CAU', short:'Playful golden retriever', breed:'Golden Retriever', age:'2 years', gender:'Male', weight:'28 kg', vax:'Yes', temperament:'Energetic, Loyal', fee:1500, story:'Owner surrender; loves fetch and families with space.' },
+  { id:'luna', name:'Luna', img:'https://i.pinimg.com/474x/b5/c5/54/b5c554632b5bf004e72060070ca936bd.jpg', short:'Gentle white kitten', breed:'Domestic Short Hair', age:'9 months', gender:'Male', weight:'3.5 kg', vax:'Yes', temperament:'Affectionate, Calm', fee:700, story:'Rescued from a colony; loves quiet homes and windowsills.' },
+  { id:'cookie', name:'Cookie', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdFO8lUJElXblG3aMtIPHix229JC6gQmKW8w&s', short:'Cute spotted puppy', breed:'Mixed Breed', age:'5 months', gender:'Male', weight:'10 kg', vax:'Partial', temperament:'Playful, Trainable', fee:900, story:'Found with siblings; currently in foster and learning basics.' },
+  { id:'ace', name:'Ace', img:'https://images.pexels.com/photos/1996333/pexels-photo-1996333.jpeg?cs=srgb&dl=pexels-helenalopes-1996333.jpg&fm=jpg', short:'Elegant horse', breed:'Arabian Mix', age:'3 years', gender:'Male', weight:'420 kg', vax:'Yes', temperament:'Calm, Graceful', fee:5000, story:'Rescued from neglect; needs experienced handler and wide space.' },
+  { id:'simba', name:'Simba', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnS8C0q03RFbn2eRE-Xc8HSAtckW270wC7jg&s', short:'Cute hamster', breed:'Syrian Hamster', age:'6 months', gender:'Male', weight:'0.1 kg', vax:'N/A', temperament:'Docile, Curious', fee:200, story:'Small and playful; perfect for careful kids and calm homes.' },
+  { id:'lily', name:'Lily', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRF1jBSUhTe2MmduXqLg4gen3zSvaPLKSwIBQ&s', short:'Baby cow', breed:'Miniature Cow', age:'1 year', gender:'Male', weight:'35 kg', vax:'Scheduled', temperament:'Calm, Friendly', fee:0, story:'Good for farm or sanctuary; needs space and proper grazing.' },
+  { id:'whiskers', name:'Whiskers', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYW_DYFcDfe1k1icYMOXN44oSStXHEHbgCDA&s', short:'African grey parrot', breed:'African Grey', age:'2 years', gender:'Male', weight:'0.4 kg', vax:'N/A', temperament:'Intelligent, Social', fee:1000, story:'Confiscated from illegal trade; socialized and ready for experienced owner.' }
+];
+
+/* =======================
+   Render pet cards (keeps exact styling)
+   ======================= */
+const petGrid = document.getElementById('petGrid');
+function renderPets(){
+  petGrid.innerHTML = PETS.map((p, i) => `
+    <div class="pet-card" role="button" tabindex="0" data-index="${i}">
+      <img src="${p.img}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <p>${p.short}</p>
+      <div class="fav-badge" aria-hidden="true">♥</div>
+    </div>
+  `).join('');
+  attachCardListeners();
+}
+renderPets();
+
+/* attach listeners for click & keyboard */
+function attachCardListeners(){
+  document.querySelectorAll('.pet-card').forEach(card=>{
+    card.addEventListener('click', ()=> openModal(Number(card.dataset.index)));
+    card.addEventListener('keydown', (e)=> { if(e.key === 'Enter') openModal(Number(card.dataset.index)); });
+  });
+}
+
+/* =======================
+   Modal logic + tab slide logic
+   ======================= */
+const modalBackdrop = document.getElementById('modalBackdrop');
+const modalImg = document.getElementById('modalImg');
+const modalName = document.getElementById('modalName');
+const modalShort = document.getElementById('modalShort');
+const detailBreed = document.getElementById('detailBreed');
+const detailAge = document.getElementById('detailAge');
+const detailGender = document.getElementById('detailGender');
+const detailWeight = document.getElementById('detailWeight');
+const detailVax = document.getElementById('detailVax');
+const detailTemp = document.getElementById('detailTemp');
+const detailFee = document.getElementById('detailFee');
+const panelStory = document.getElementById('panelStory');
+
+let currentIndex = null;
+
+function openModal(i){
+  currentIndex = i;
+  const pet = PETS[i];
+  modalImg.src = pet.img;
+  modalName.textContent = pet.name;
+  modalShort.textContent = pet.short;
+  detailBreed.textContent = pet.breed;
+  detailAge.textContent = pet.age;
+  detailGender.textContent = pet.gender;
+  detailWeight.textContent = pet.weight;
+  detailVax.textContent = pet.vax;
+  detailTemp.textContent = pet.temperament;
+  detailFee.textContent = pet.fee ? '₹' + pet.fee : 'No fee';
+  panelStory.textContent = pet.story;
+
+  // reset tabs to Details
+  setActiveTab('details');
+
+  // reset messages
+  document.getElementById('adoptConfirm').style.display = 'none';
+  document.getElementById('donConfirm').style.display = 'none';
+  document.getElementById('adoptForm').reset();
+  document.getElementById('customAmt').value = '';
+
+  // show modal
+  modalBackdrop.style.display = 'flex';
+  modalBackdrop.setAttribute('aria-hidden','false');
+  updateFavUI();
+}
+
+/* close modal */
+document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+modalBackdrop.addEventListener('click', (e)=> { if(e.target === modalBackdrop) closeModal(); });
+document.addEventListener('keydown', (e)=> { if(e.key === 'Escape') closeModal(); });
+
+function closeModal(){
+  modalBackdrop.style.display = 'none';
+  modalBackdrop.setAttribute('aria-hidden','true');
+  currentIndex = null;
+}
+
+/* tab switching (slide panels) */
+const tabButtons = Array.from(document.querySelectorAll('.tab-btn'));
+const tabPanels = Array.from(document.querySelectorAll('.tab-panel'));
+tabButtons.forEach(btn => btn.addEventListener('click', ()=> setActiveTab(btn.dataset.tab)));
+
+function setActiveTab(name){
+  tabButtons.forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+  // panels order: details (0), adopt (1), sponsor (2)
+  const order = {details:0, adopt:1, sponsor:2}[name];
+  tabPanels.forEach((panel, idx) => {
+    panel.style.transform = `translateX(${(idx - order) * 100}%)`;
+  });
+}
+
+/* =======================
+   Adopt form handling (demo)
+   ======================= */
+function submitAdopt(e){
+  e.preventDefault();
+  if(currentIndex === null) return alert('Open a pet first');
+  const pet = PETS[currentIndex];
+  const name = document.getElementById('adopterName').value.trim();
+  const email = document.getElementById('adopterEmail').value.trim();
+  const msg = document.getElementById('adopterMsg').value.trim();
+  if(!name || !email) return alert('Please enter name and email');
+  const requests = JSON.parse(localStorage.getItem('adopt_requests') || '[]');
+  requests.push({pet:pet.name, name, email, msg, date: new Date().toISOString()});
+  localStorage.setItem('adopt_requests', JSON.stringify(requests));
+  const c = document.getElementById('adoptConfirm');
+  c.textContent = 'Adoption inquiry saved (demo). We will contact you soon.';
+  c.style.display = 'block';
+  // switch to confirm view
+  setTimeout(()=>{ document.getElementById('adoptForm').reset(); }, 300);
+  return false;
+}
+
+/* =======================
+   Sponsor / Donation handling (demo)
+   ======================= */
+const presetHolder = document.getElementById('presetAmounts');
+[100,250,500,1000].forEach(a=>{
+  const b = document.createElement('button');
+  b.textContent = '₹' + a;
+  b.addEventListener('click', ()=> doDonate(a));
+  b.className = 'preset-btn';
+  presetHolder.appendChild(b);
+});
+
+document.getElementById('donNowBtn').addEventListener('click', ()=>{
+  const val = Number(document.getElementById('customAmt').value || 0);
+  if(!val || val <= 0) return alert('Enter valid amount');
+  doDonate(val);
+});
+
+function doDonate(amount){
+  if(currentIndex === null) return alert('Open a pet first');
+  const pet = PETS[currentIndex];
+  const donations = JSON.parse(localStorage.getItem('donations') || '[]');
+  donations.push({pet:pet.name, amount, date: new Date().toISOString()});
+  localStorage.setItem('donations', JSON.stringify(donations));
+  const c = document.getElementById('donConfirm');
+  c.textContent = `Thank you! ₹${amount} donated (demo) for ${pet.name}.`;
+  c.style.display = 'block';
+  // clear custom input
+  document.getElementById('customAmt').value = '';
+}
+
+/* =======================
+   Favorites (localStorage) + small UI updates
+   ======================= */
+const favKey = 'pethaven_favs_v1';
+const favBtn = document.getElementById('favBtn');
+favBtn.addEventListener('click', toggleFav);
+
+function getFavs(){ return JSON.parse(localStorage.getItem(favKey) || '[]'); }
+function toggleFav(){
+  if(currentIndex === null) return;
+  const id = PETS[currentIndex].id;
+  let arr = getFavs();
+  if(arr.includes(id)) arr = arr.filter(x=>x!==id);
+  else arr.push(id);
+  localStorage.setItem(favKey, JSON.stringify(arr));
+  updateFavUI();
+  updateGridFavs();
+}
+function isFav(id){ return getFavs().includes(id); }
+
+function updateFavUI(){
+  if(currentIndex === null) return;
+  const id = PETS[currentIndex].id;
+  if(isFav(id)){
+    favBtn.textContent = '♥ Favorited';
+    favBtn.style.background = 'linear-gradient(90deg,var(--accent1),var(--accent2))';
+    favBtn.style.color = '#3b0a49';
+  } else {
+    favBtn.textContent = '♡ Favorite';
+    favBtn.style.background = 'transparent';
+    favBtn.style.color = '#fff';
+  }
+}
+
+function updateGridFavs(){
+  document.querySelectorAll('.pet-card').forEach((card)=>{
+    const idx = Number(card.dataset.index);
+    const badge = card.querySelector('.fav-badge');
+    if(isFav(PETS[idx].id)) badge.style.display = 'block'; else badge.style.display = 'none';
+  });
+}
+
+/* initialize grid fav icons and confirm msg containers */
+function init(){
+  // add data-index attributes (already added) and wire close button
+  document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+  updateGridFavs();
+  // create confirm containers if missing
+  if(!document.getElementById('adoptConfirm')) {
+    const el = document.createElement('div');
+    el.id = 'adoptConfirm'; el.className='confirm-msg'; el.style.display='none';
+    document.querySelector('[data-panel="adopt"]').appendChild(el);
+  }
+  if(!document.getElementById('donConfirm')) {
+    const el2 = document.createElement('div');
+    el2.id = 'donConfirm'; el2.className='confirm-msg'; el2.style.display='none';
+    document.querySelector('[data-panel="sponsor"]').appendChild(el2);
+  }
+}
+init();
+
+/* small utility: close modal function already added earlier */
+</script>
+
+</body>
+</html>
